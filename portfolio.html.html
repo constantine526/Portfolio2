@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Janshica Constantine – Portfolio</title>
+<style>
+/* ========================================
+   RESET & BASE
+======================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F0F4FA;
+  --white: #FFFFFF;
+  --sky: #7BAFD4;
+  --sky-light: #A8CCE8;
+  --navy: #1B3A6B;
+  --navy-mid: #2C5282;
+  --card-bg: #EAF0F8;
+  --text: #2D3748;
+  --text-muted: #64748B;
+  --border: #C8D8EC;
+  --shadow: 0 4px 20px rgba(27,58,107,0.08);
+  --shadow-hover: 0 12px 40px rgba(27,58,107,0.16);
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ========================================
+   TYPOGRAPHY
+======================================== */
+h1, h2, h3, h4 {
+  font-family: Georgia, serif;
+  color: var(--navy);
+  line-height: 1.25;
+}
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+h4 { font-size: 1rem; }
+
+p { margin-bottom: 1rem; }
+
+/* ========================================
+   SECTION TITLE COMPONENT
+======================================== */
+.section-title {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+.section-title h2 {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 1rem;
+  cursor: default;
+  transition: color var(--transition);
+}
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80px; height: 3px;
+  background: linear-gradient(90deg, var(--sky), var(--navy));
+  border-radius: 2px;
+  transition: transform 0.5s ease;
+}
+.section-title h2.visible::after { transform: translateX(-50%) scaleX(1); }
+.section-title p {
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 1rem auto 0;
+  font-style: italic;
+}
+
+/* ========================================
+   NAVIGATION
+======================================== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(240,244,250,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  color: var(--navy);
+  font-weight: bold;
+  letter-spacing: 0.02em;
+}
+.nav-links {
+  display: flex; gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: var(--sky);
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--navy); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 4px;
+  background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--navy);
+  transition: transform var(--transition), opacity var(--transition);
+  border-radius: 2px;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.mobile-menu {
+  display: none;
+  position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(240,244,250,0.98);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  z-index: 999;
+  padding: 1rem 0;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu ul { list-style: none; }
+.mobile-menu ul li a {
+  display: block; padding: 0.75rem 2rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  transition: color var(--transition), background var(--transition);
+}
+.mobile-menu ul li a:hover { background: var(--card-bg); color: var(--navy); }
+
+/* ========================================
+   HERO
+======================================== */
+#accueil {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 4rem; align-items: center;
+}
+.hero-text .greeting {
+  font-size: 1.1rem;
+  color: var(--sky);
+  font-family: Georgia, serif;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.7s ease 0.2s forwards;
+}
+.hero-text h1 {
+  margin-bottom: 0.5rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.7s ease 0.4s forwards;
+}
+.hero-text .subtitle {
+  font-size: 1.2rem;
+  color: var(--sky);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.7s ease 0.6s forwards;
+}
+.hero-text .description {
+  color: var(--text-muted);
+  max-width: 520px;
+  margin-bottom: 2rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.7s ease 0.8s forwards;
+}
+.hero-text .description p { margin-bottom: 0.5rem; }
+.hero-buttons {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.7s ease 1s forwards;
+}
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  border: 2px solid var(--navy);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--navy-mid);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius);
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  border: 2px solid var(--navy);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+  display: inline-block;
+}
+.btn-secondary:hover {
+  background: var(--navy);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Photo placeholder */
+.hero-photo {
+  opacity: 0; transform: scale(0.9);
+  animation: fadeScale 0.8s ease 0.5s forwards;
+}
+.photo-circle {
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky-light), var(--card-bg));
+  border: 4px solid var(--sky);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 12px rgba(123,175,212,0.15), var(--shadow);
+}
+.photo-circle svg { opacity: 0.35; }
+
+/* BG shapes */
+.hero-shapes {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: -1;
+  overflow: hidden;
+}
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,175,212,0.12), transparent 70%);
+}
+.shape-1 { width: 500px; height: 500px; top: -100px; right: -100px; }
+.shape-2 { width: 300px; height: 300px; bottom: 50px; left: -80px; }
+.shape-3 { width: 200px; height: 200px; top: 60%; right: 20%; opacity: 0.6; }
+
+/* ========================================
+   SECTIONS GENERAL
+======================================== */
+section {
+  padding: 6rem 2rem;
+}
+section:nth-child(even) { background: rgba(255,255,255,0.5); }
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* ========================================
+   PROFIL
+======================================== */
+#profil { background: var(--white); }
+
+.profil-intro {
+  max-width: 760px; margin: 0 auto 3rem;
+  text-align: center;
+}
+.profil-intro p { color: var(--text); font-size: 1.05rem; }
+
+/* Pourquoi l'informatique */
+.profil-why {
+  background: var(--card-bg);
+  border-left: 4px solid var(--sky);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 2rem 2.5rem;
+  margin: 2.5rem 0;
+}
+.profil-why h3 {
+  margin-bottom: 1rem;
+  color: var(--navy);
+}
+
+/* Qualités */
+.qualites-title {
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin: 3rem 0 1.5rem;
+  text-align: center;
+  font-style: italic;
+}
+.qualites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.qualite-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.qualite-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sky), var(--navy));
+}
+.qualite-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.qualite-icon {
+  font-size: 2rem; margin-bottom: 1rem;
+}
+.qualite-card h4 {
+  font-size: 1rem;
+  color: var(--navy);
+  margin-bottom: 0.75rem;
+}
+.qualite-card p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 0; }
+
+/* Timeline Evolution */
+.evolution-title {
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin: 3rem 0 2rem;
+  text-align: center;
+  font-style: italic;
+}
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute; top: 0; bottom: 0;
+  left: 50%; transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(to bottom, var(--sky), var(--navy));
+}
+.timeline-item {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+.timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+.timeline-content {
+  width: 44%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.timeline-item:nth-child(odd) .timeline-content { margin-right: 6%; }
+.timeline-item:nth-child(even) .timeline-content { margin-left: 6%; }
+.timeline-content h4 { color: var(--navy); margin-bottom: 0.5rem; font-size: 0.95rem; }
+.timeline-content p { margin-bottom: 0; }
+.timeline-dot {
+  position: absolute; top: 1.25rem; left: 50%;
+  transform: translate(-50%, 0);
+  width: 14px; height: 14px;
+  background: var(--sky);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--sky);
+  z-index: 1;
+}
+
+/* ========================================
+   SAE
+======================================== */
+#sae { background: var(--bg); }
+
+.sae-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.sae-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.sae-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex; flex-direction: column;
+}
+.sae-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+.sae-card.expanded {
+  transform: scale(1.01);
+  box-shadow: 0 20px 60px rgba(27,58,107,0.18);
+}
+
+.sae-card-img {
+  height: 140px;
+  background: linear-gradient(135deg, var(--sky-light) 0%, var(--card-bg) 100%);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--navy);
+  font-size: 3rem;
+  position: relative;
+}
+.sae-card-img .sae-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-family: Georgia, serif;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.sae-card-body {
+  padding: 1.5rem;
+  flex: 1; display: flex; flex-direction: column;
+}
+.sae-card-body h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--navy);
+}
+.sae-card-body .sae-subtitle {
+  font-size: 0.8rem;
+  color: var(--sky);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.sae-section {
+  margin-top: 1rem;
+}
+.sae-section strong {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.sae-section p, .sae-section li {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.tags {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.tag {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--navy-mid);
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-family: Georgia, serif;
+}
+
+.sae-details {
+  display: none;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+.sae-card.expanded .sae-details { display: block; }
+
+.sae-actions {
+  display: flex; gap: 0.75rem; flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--navy);
+  cursor: pointer;
+  font-family: Georgia, serif;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.btn-sm.filled {
+  background: var(--navy); color: var(--white);
+}
+.btn-sm.outline {
+  background: transparent; color: var(--navy);
+}
+.btn-sm:hover { transform: translateY(-1px); }
+.btn-sm.filled:hover { background: var(--navy-mid); }
+.btn-sm.outline:hover { background: var(--navy); color: var(--white); }
+
+/* ========================================
+   PAGE EXPERIENCE PROFESSIONNELLE
+======================================== */
+
+.xp-page {
+  background: #F8FBFF;
+}
+
+/* HERO */
+.xp-hero {
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  padding: 6rem 2rem;
+}
+
+.xp-hero h1 {
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.xp-hero-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.xp-stage-card {
+  background: var(--card-bg);
+  border: 1px solid var(--navy);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+}
+
+.xp-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--navy);
+  color: var(--navy);
+  border-radius: var(--radius);
+  transition: 0.3s ease;
+}
+.xp-btn:hover {
+  background: var(--navy);
+  color: white;
+}
+
+/* IMAGE */
+.xp-image-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.4s ease;
+}
+.xp-image-wrapper:hover {
+  transform: scale(1.03);
+}
+
+/* SECTIONS */
+.xp-section {
+  padding: 6rem 2rem;
+}
+
+.xp-section h2 {
+  text-align: center;
+  color: var(--navy);
+  margin-bottom: 3rem;
+}
+
+/* GRIDS */
+.xp-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.xp-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* CARDS */
+.xp-card {
+  background: white;
+  border: 1px solid #D6E6F5;
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+.xp-card:hover {
+  transform: translateY(-5px);
+}
+
+.xp-card.big {
+  padding: 2.5rem;
+}
+
+/* ICONS */
+.xp-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #D6E6F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* LIST */
+.xp-list {
+  margin: 1rem 0;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+}
+
+/* BADGES & TOOLS */
+.xp-tools span, .xp-badges span {
+  display: inline-block;
+  background: #D6E6F5;
+  color: var(--navy);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  margin: 0.2rem;
+  font-size: 0.75rem;
+  font-family: Georgia, serif; /* Force l'alignement de la police */
+  transition: transform 0.2s ease;
+}
+.xp-tools span:hover, .xp-badges span:hover {
+  transform: scale(1.05);
+}
+
+/* REFLEXION */
+.xp-reflect {
+  background: white;
+  border: 1px solid #D6E6F5;
+  padding: 2rem;
+  border-radius: var(--radius);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.xp-reflect:hover {
+  transform: translateY(-5px);
+}
+
+.xp-reflect-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .xp-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .xp-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .xp-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   PAGE OBJECTIFS
+======================================== */
+
+.obj-page {
+  background: #F8FBFF;
+  padding: 6rem 2rem;
+}
+
+/* HERO */
+.obj-hero {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 5rem auto;
+}
+
+.obj-hero h1 {
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+}
+
+.obj-intro {
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* TIMELINE */
+.obj-timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* LINE */
+.obj-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--sky), var(--navy));
+}
+
+/* ITEM */
+.obj-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 5rem;
+  position: relative;
+}
+
+/* DOT */
+.obj-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  background: var(--navy);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 4px solid white;
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+
+/* CARD */
+.obj-card {
+  width: 45%;
+  background: white;
+  border: 1px solid #D6E6F5;
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.obj-card:hover {
+  transform: translateY(-6px);
+}
+
+/* alternance gauche/droite */
+.obj-item:nth-child(odd) .obj-card {
+  margin-left: 0;
+}
+
+.obj-item:nth-child(even) {
+  justify-content: flex-end;
+}
+
+.obj-item:nth-child(even) .obj-card {
+  margin-left: auto;
+}
+
+/* TEXT */
+.obj-card h2 {
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.obj-card p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/* BADGES */
+.obj-badges {
+  margin-top: 1.5rem;
+}
+
+.obj-badges span {
+  display: inline-block;
+  background: #D6E6F5;
+  color: var(--navy);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin: 0.2rem;
+  transition: transform 0.2s ease;
+}
+
+.obj-badges span:hover {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+
+  .obj-line {
+    left: 20px;
+  }
+
+  .obj-dot {
+    left: 20px;
+    transform: none;
+  }
+
+  .obj-item {
+    flex-direction: column;
+    margin-left: 40px;
+  }
+
+  .obj-card {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}
+
+/* ========================================
+   CONTACT
+======================================== */
+#contact { background: var(--white); }
+
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: start;
+}
+.contact-info h3 {
+  margin-bottom: 1.5rem;
+}
+.contact-links {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.contact-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  color: var(--navy);
+}
+.contact-link:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow);
+  border-color: var(--sky);
+}
+.contact-link-icon {
+  width: 40px; height: 40px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.contact-link-text strong { display: block; font-size: 0.9rem; color: var(--navy); }
+.contact-link-text span { font-size: 0.8rem; color: var(--text-muted); }
+
+/* Form */
+.contact-form h3 { margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--sky);
+  box-shadow: 0 0 0 3px rgba(123,175,212,0.15);
+}
+.form-group textarea { min-height: 140px; }
+
+/* ========================================
+   FOOTER
+======================================== */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  padding: 3rem 2rem;
+}
+footer .footer-name {
+  font-size: 1.3rem;
+  color: var(--white);
+  font-family: Georgia, serif;
+  margin-bottom: 0.25rem;
+}
+footer .footer-role {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+.footer-links {
+  display: flex; gap: 1.5rem; justify-content: center;
+  margin-bottom: 2rem;
+}
+.footer-links a {
+  color: var(--sky-light);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--white); }
+footer .footer-copy {
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeScale {
+  to { opacity: 1; transform: scale(1); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-photo { display: flex; justify-content: center; order: -1; }
+  .photo-circle { width: 200px; height: 200px; }
+  .hero-buttons { justify-content: center; }
+  .hero-text .description { margin: 0 auto 2rem; }
+  .timeline::before { left: 20px; }
+  .timeline-item, .timeline-item:nth-child(odd) { flex-direction: column; }
+  .timeline-content { width: 100%; margin: 0 0 0 48px !important; }
+  .timeline-dot { left: 14px; }
+  .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 4rem 1.25rem; }
+  .sae-grid { grid-template-columns: 1fr; }
+  .objectifs-card { padding: 2rem 1.5rem; }
+  .qualites-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">J. Constantine</div>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#profil">Profil</a></li>
+    <li><a href="#sae">SAE</a></li>
+    <li><a href="#experiences">Expériences professionnelles</a></li>
+    <li><a href="#objectifs">Objectifs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <ul>
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#profil">Profil</a></li>
+    <li><a href="#sae">SAE</a></li>
+    <li><a href="#experiences">Expériences professionnelles</a></li>
+    <li><a href="#objectifs">Objectifs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+
+<section id="accueil">
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="greeting">Bonjour,</p>
+      <h1>Je suis Janshica Constantine</h1>
+      <p class="subtitle">Étudiante en BUT Informatique</p>
+      <div class="description">
+        <p>Bienvenue sur mon portfolio.</p>
+        <p>Découvrez mon univers informatique, mes projets, mes compétences ainsi que mon parcours dans le développement.</p>
+      </div>
+      <div class="hero-buttons">
+        <a href="#profil" class="btn-primary">Découvrir mon profil</a>
+        <a href="#sae" class="btn-secondary">Voir mes projets</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-circle">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="32" r="18" fill="#1B3A6B"/>
+          <ellipse cx="40" cy="70" rx="28" ry="20" fill="#1B3A6B"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="profil">
+  <div class="container">
+    <div class="section-title">
+      <h2>QUI SUIS-JE ?</h2>
+    </div>
+
+    <div class="profil-intro reveal">
+      <p>Transformer des idées en projets concrets est ce qui m'a conduite vers l'informatique.</p>
+      <p>Je suis Janshica Constantine, en deuxième année de BUT Informatique à l'IUT de Villetaneuse.
+      Passionnée par le développement et la création de solutions numériques, j'ai pour ambition de devenir développeuse Full Stack. Chaque ligne de code est pour moi l'occasion de relever un nouveau défi technique tout en développant mes compétences techniques et relationnelles.</p>
+      <p>Ainsi, mon stage en entreprise chez Fnac Darty a renforcé cette conviction en me faisant découvrir le monde professionnel ainsi que l'importance du travail en équipe.</p>
+    </div>
+
+    <div class="profil-why reveal reveal-delay-1">
+      <h3>Pourquoi l'informatique ?</h3>
+      <p>Ce choix a été une évidence. Après un cursus scientifique tourné vers la théorie, j'ai voulu franchir le pas pour enfin concrétiser mes idées. Ce qui me passionne, c'est de transformer mon imagination en solutions réelles : pour moi, le développement est l'outil parfait pour allier créativité et rigueur technique.</p>
+      <p>Ce que j'aime par-dessus tout, c'est la diversité de ce domaine. L'informatique permet de jongler avec une multitude de langages et d'outils, ce qui nourrit constamment mon envie d'apprendre. C'est cette curiosité naturelle qui m'a orientée vers le développement</p>
+    </div>
+
+    <p class="qualites-title reveal">Mes qualités</p>
+    <div class="qualites-grid">
+      <div class="qualite-card reveal reveal-delay-1">
+        <div class="qualite-icon">🔍</div>
+        <h4>Conscience professionnelle et circonspection</h4>
+        <p>Je fais preuve de circonspection dans mon travail en prenant le temps d'analyser chaque projet avant de commencer. Avant de me lancer, j'identifie les contraintes et les risques potentiels (retard, difficultés techniques, choix d'outils) afin d'anticiper et de mettre en place des solutions adaptées. Cette approche me permet de mieux organiser mon travail et de limiter les imprévus. J'utilisez notamment des schémas et des diagrammes d'activités pour y parvenir.</p>
+      </div>
+      <div class="qualite-card reveal reveal-delay-2">
+        <div class="qualite-icon">🤝</div>
+        <h4>Sociabilité et esprit d'équipe</h4>
+        <p>La sociabilité est l'un de mes principaux atouts. Je considère chaque collaboration comme une opportunité d'apprentissage et de partage. Dans les projets de groupe, je veille à encourager la communication, à écouter les idées de chacun et à favoriser la participation de tous. J'essaie également d'aider les profils plus réservés à s'intégrer afin de renforcer la cohésion du groupe. Pour moi, une bonne ambiance et une communication fluide sont essentielles à la réussite d'un projet.</p>
+      </div>
+    </div>
+
+    <p class="evolution-title reveal">Évolution</p>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>1ère année de BUT</h4>
+          <p>En première année de BUT, j'ai découvert les bases du développement et les langages de programmation.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>2ème année de BUT</h4>
+          <p>La deuxième année m'a permis de travailler sur des projets plus complets et de renforcer ma pratique grâce à une première expérience professionnelle.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Bilan & convictions</h4>
+          <p>Au fil de mes projets et de mon stage, j'ai compris que progresser individuellement est essentiel. Être autodidacte et savoir organiser son travail sont, selon moi, des qualités indispensables, tout comme savoir collaborer efficacement.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4>Aujourd'hui</h4>
+          <p>C'est cet équilibre qui me permet de construire les meilleurs projet, comme celui de diffusion sonore que je présente dans la suite de ce portfolio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sae">
+  <div class="container">
+    <div class="section-title">
+      <h2>Mes projets universitaires</h2>
+      <p>Les SAE réalisées tout au long de mon BUT m'ont permis de découvrir de nombreux langages, outils et méthodes de travail. Chaque projet m'a permis de développer aussi bien mes compétences techniques que mes qualités de travail en équipe et individuelles.</p>
+    </div>
+
+    <div class="sae-grid">
+
+      <div class="sae-card reveal" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          🐍
+          <span class="sae-badge">S1</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S1 – Création d'un réseau social</h3>
+          <p class="sae-subtitle">Python</p>
+          <div class="sae-section">
+            <strong>Contexte</strong>
+            <p>Mon tout premier projet en équipe consistait à développer un mini réseau social en Python. Les utilisateurs étaient représentés sous forme de graphe afin d'analyser leurs relations (popularité, utilisateurs isolés, suggestions d'amis...).</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Ce que j'ai appris</strong>
+              <p>Ce projet m'a permis de découvrir les bases du développement, les bonnes pratiques de programmation, collaboration équipe et l'importance de travailler avec un code clair et bien structuré.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">Matplotlib</span>
+                <span class="tag">Git / GitHub</span>
+                <span class="tag">Tests unitaires</span>
+              </div>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences développées</strong>
+              <div class="tags">
+                <span class="tag">Travail en équipe</span>
+                <span class="tag">Rigueur</span>
+                <span class="tag">Anticipation des erreurs</span>
+              </div>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sae-card reveal reveal-delay-1" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          🐧
+          <span class="sae-badge">S1</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S1 – Configuration d'un poste Linux</h3>
+          <p class="sae-subtitle">Installation et sécurisation d'un environnement Linux</p>
+          <div class="sae-section">
+            <strong>Contexte</strong>
+            <p>Cette SAE consistait à installer et configurer entièrement un poste Linux. J'ai mis en place différents services réseau (SSH, DNS, DHCP), sécurisé le système avec un pare-feu et géré les utilisateurs ainsi que leurs droits.</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Ce que j'ai appris</strong>
+              <p>Ce projet m'a permis de mieux comprendre mon environnement de travail ainsi que le fonctionnement d'un système Linux. Ma curiosité et volonté d'apprendre mas permis de rechercher des solutions par moi-même pour comprendre de nouvelles notions.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <div class="tags">
+                <span class="tag">Linux</span>
+                <span class="tag">Réseaux</span>
+                <span class="tag">DNS</span>
+                <span class="tag">DHCP</span>
+                <span class="tag">SSH</span>
+                <span class="tag">Pare-feu</span>
+              </div>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences développées</strong>
+              <div class="tags">
+                <span class="tag">Autonomie</span>
+                <span class="tag">Curiosité</span>
+              </div>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sae-card reveal reveal-delay-2" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          🗄️
+          <span class="sae-badge">S1</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S1 – Création d'une base de données</h3>
+          <p class="sae-subtitle">Modélisation et implémentation SQL</p>
+          <div class="sae-section">
+            <strong>Contexte</strong>
+            <p>Premier projet individuel, il consistait à concevoir une base de données sur le thème du climat. J'ai réalisé le modèle relationnel avec Looping avant de créer la base en SQL et d'effectuer différentes requêtes.</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Ce que j'ai appris</strong>
+              <p>Je ne connaissais pas l'outil Looping avant cette SAE. J'ai donc appris à l'utiliser de manière autonome. Ce projet m'a permis de comprendre comment structurer, stocker et exploiter efficacement des données.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <div class="tags">
+                <span class="tag">SQL</span>
+                <span class="tag">Base de données</span>
+                <span class="tag">Looping</span>
+                <span class="tag">Modèle relationnel</span>
+              </div>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences développées</strong>
+              <div class="tags">
+                <span class="tag">Autonomie</span>
+                <span class="tag">Gestion du temps</span>
+                <span class="tag">Organisation</span>
+              </div>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sae-card reveal" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          ♟️
+          <span class="sae-badge">S2</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S2 – Développement d'une application</h3>
+          <p class="sae-subtitle">Jeu d'échecs en Java</p>
+          <div class="sae-section">
+            <strong>Contexte</strong>
+            <p>Ce projet en équipe consistait à développer un jeu d'échecs entièrement en Java. L'objectif était de transformer un jeu que nous connaissons tous en une véritable application fonctionnelle.</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Ce que j'ai appris</strong>
+              <p>C'est l'un des projets les plus complets que j'ai réalisés. Il m'a permis d'améliorer ma maîtrise de Java, de travailler sur un projet de grande envergure et de comprendre l'importance de la documentation, de la précision et de la correction des bugs. J'ai également réalisé des diagrammes d'activités afin d'anticiper les difficultés et de mieux organiser le développement.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <div class="tags">
+                <span class="tag">Java</span>
+                <span class="tag">Programmation orientée objet</span>
+                <span class="tag">Diagrammes d'activités</span>
+                <span class="tag">Documentation</span>
+                <span class="tag">Git</span>
+              </div>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences développées</strong>
+              <div class="tags">
+                <span class="tag">Travail en équipe</span>
+                <span class="tag">Organisation</span>
+                <span class="tag">Anticipation</span>
+                <span class="tag">Rigueur</span>
+              </div>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sae-card reveal reveal-delay-1" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          📅
+          <span class="sae-badge">S2</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S2 – Gestion de projet</h3>
+          <p class="sae-subtitle">Organisation d'un voyage</p>
+          <div class="sae-section">
+            <strong>Contexte</strong>
+            <p>Cette SAE portait sur la planification complète d'un projet de voyage. Nous avons analysé les besoins, défini les ressources, élaboré un budget, construit un planning et réalisé différents diagrammes de gestion de projet.</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Ce que j'ai appris</strong>
+              <p>Même si ce projet ne comportait pas de développement, il m'a appris à analyser un projet dans son ensemble, à anticiper les risques and à respecter des contraintes de temps. J'y ai également développé mes compétences en organisation et en gestion de projet.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <div class="tags">
+                <span class="tag">Diagramme de Gantt</span>
+                <span class="tag">Diagramme PERT</span>
+                <span class="tag">Gestion de projet</span>
+                <span class="tag">Analyse des risques</span>
+              </div>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences développées</strong>
+              <div class="tags">
+                <span class="tag">Organisation</span>
+                <span class="tag">Travail en équipe</span>
+                <span class="tag">Gestion du temps</span>
+                <span class="tag">Communication</span>
+              </div>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sae-card reveal reveal-delay-2" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          🎵
+          <span class="sae-badge">S3</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S3 – Développement d'une application</h3>
+          <p class="sae-subtitle">Plateforme de diffusion sonore</p>
+          <div class="sae-section">
+            <strong>Objectif</strong>
+            <p>Il s'agit de l'un de mes premiers grands projets réalisés au sein d'une équipe importante. L'objectif était de développer une plateforme web de gestion et de diffusion musicale automatisée destinée aux espaces commerciaux. Elle permet de piloter à distance un parc de lecteurs audio, de planifier des playlists selon des plages horaires précises et de centraliser le contrôle de l'ambiance sonore en temps réel.</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Mes principales missions</strong>
+              <p>Ma première mission a été de concevoir la base de données du projet, une étape essentielle puisqu'elle conditionne le bon fonctionnement de l'ensemble de l'application.</p>
+              <p>J'ai ensuite développé, avec Flask, toute la partie utilisateur du site : l'authentification (connexion), la gestion des rôles, la structure du site ainsi que les principaux contrôleurs. En parallèle, j'ai occupé le rôle de cheffe d'équipe, en assurant l'organisation du travail, le suivi de l'avancement et le respect des échéances.</p>
+              <p>Parmi mes missions secondaires, j'ai participé à l'analyse des besoins à travers les User Stories, au développement de certaines parties du CSS, à la correction régulière des bugs ainsi qu'à l'amélioration de la sécurité de l'application.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <p>Ce projet m'a permis de développer une application complète avec Flask. J'ai utilisé les différentes couches de l'architecture de l'application (Models, DAO, Services, Controllers et Templates) afin de concevoir une interface utilisateur moderne, intuitive et fonctionnelle.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences transversales</strong>
+              <p>Ce projet m'a montré à quel point la diversité des profils au sein d'une équipe est une véritable force. Chacun apporte ses connaissances et permet aux autres de progresser plus rapidement. Par exemple, je ne connaissais pas les Raspberry Pi avant ce projet ; grâce aux membres de mon équipe, j'ai appris à les utiliser. À l'inverse, mes idées sur l'interface et l'expérience utilisateur ont pu être concrétisées grâce aux échanges et à la collaboration avec l'équipe.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Pistes d'amélioration</strong>
+              <p>Même si le projet a été livré dans les délais, une meilleure organisation du temps nous aurait permis d'aller encore plus loin, notamment pour prendre davantage de recul sur l'utilisation de Git, corriger certains bugs restants et améliorer la sécurité ainsi que l'interface du site. Cette expérience m'a appris qu'une bonne planification est aussi importante que le développement lui-même.</p>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sae-card reveal" onclick="toggleSAE(this)">
+        <div class="sae-card-img">
+          🚀
+          <span class="sae-badge">S4</span>
+        </div>
+        <div class="sae-card-body">
+          <h3>SAE S4 – Évolution de la plateforme de diffusion sonore</h3>
+          <p class="sae-subtitle"></p>
+          <div class="sae-section">
+            <strong>Objectif</strong>
+            <p>Cette SAE consistait à reprendre notre projet de S3 afin de l'améliorer, de le rendre plus robuste et d'y intégrer de nouveaux outils et fonctionnalités. L'objectif était d'optimiser l'application aussi bien sur le plan technique que sur celui de l'expérience utilisateur.</p>
+          </div>
+          <div class="sae-details">
+            <div class="sae-section">
+              <strong>Mes principales missions</strong>
+              <p>J'ai renforcé la sécurité du site en mettant en place le protocole HTTPS ainsi qu'un système de CAPTCHA pour sécuriser l'authentification. J'ai également développé plusieurs thèmes afin de proposer différentes interfaces personnalisables selon les préférences des utilisateurs.</p>
+              <p>Parmi mes missions secondaires, j'ai réalisé des diagrammes d'activités pour mieux organiser le développement, participé à l'amélioration du CSS et à l'ajout de nouvelles fonctionnalités, tout en contribuant à la planification des tâches et à l'initialisation de la nouvelle base de données.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences techniques</strong>
+              <p>Cette SAE m'a permis d'approfondir mes connaissances en bases de données, notamment sur la normalisation. La base de données réalisée en S3 présentait plusieurs boucles et des relations peu optimisées. J'ai participé à sa refonte en supprimant ces boucles et en la normalisant jusqu'à la forme BCNF, afin d'obtenir une structure plus cohérente, performante et évolutive.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Compétences transversales</strong>
+              <p>J'ai également amélioré mon organisation et ma gestion du temps. L'utilisation plus régulière de GitHub nous a permis de mieux suivre les modifications du projet, d'identifier facilement qui avait réalisé chaque changement et de collaborer de manière plus efficace au sein de l'équipe.</p>
+            </div>
+            <div class="sae-section">
+              <strong>Pistes d'amélioration</strong>
+              <p>Si le projet devait être poursuivi en troisième année, j'aimerais le rendre encore plus professionnel en allant au-delà du cadre universitaire. L'objectif serait notamment de connecter la plateforme à un véritable service de streaming musical afin de proposer une solution plus réaliste et plus proche des besoins d'une entreprise.</p>
+            </div>
+          </div>
+          <div class="sae-actions">
+            <a href="https://github.com/constantine526" target="_blank" class="btn-sm outline" onclick="event.stopPropagation()">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experiences" class="xp-page">
+
+  <div class="xp-hero">
+
+    <div class="xp-hero-left">
+
+      <h2>MON EXPÉRIENCE PROFESSIONNELLE</h1>
+
+      <h3 style="margin-top:1rem; color: var(--navy);">
+        STAGE FNAC DARTY
+      </h3>
+
+      <p class="xp-hero-subtitle">
+        Passer de la théorie académique acquise en BUT Informatique à la réalité du monde professionnel :
+        telle a été mon expérience de stage.
+      </p>
+
+      <p>
+        Dans le cadre de mon BUT Informatique, j'ai réalisé un stage de 9 semaines au siège de Fnac Darty à Ivry-sur-Seine,
+        du 26 janvier au 27 mars. Intégrée à l'équipe du support informatique en tant que technicienne de proximité,
+        j'ai découvert un environnement professionnel où la collaboration, la communication et la rigueur sont essentielles.
+        Cette immersion a constitué une étape importante dans la construction de mon projet professionnel.
+      </p>
+
+    </div>
+
+    <div class="xp-hero-right">
+      <div class="xp-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+             alt="Fnac Darty siège">
+      </div>
+    </div>
+
+  </div>
+
+  <section class="xp-section">
+    <h3>Ce que le monde professionnel m'a appris</h3>
+
+    <div class="xp-grid-2">
+
+      <div class="xp-card">
+        <h4>💬 Communication, relation humaine et sens des responsabilités</h4>
+
+        <p>
+          Ce stage a été une véritable révélation sur l'aspect humain des métiers de l'informatique.
+          En accueillant quotidiennement des collaborateurs, j'ai compris que la technique ne représentait qu'une partie du métier.
+          La majorité des utilisateurs n'étant pas informaticiens, j'ai appris à vulgariser les notions techniques afin de proposer une communication claire et accessible.
+        </p>
+
+        <p>
+          Face à des collaborateurs parfois stressés par un incident informatique, j'ai développé une posture calme, empathique et orientée vers l'analyse du besoin.
+          Cette expérience m'a permis de renforcer ma communication, ma patience, mon sens des responsabilités ainsi que ma capacité à m'adapter à différents interlocuteurs.
+        </p>
+
+        <div class="xp-badges">
+          <span>Communication</span>
+          <span>Vulgarisation</span>
+          <span>Relation humaine</span>
+          <span>Patience</span>
+          <span>Sens des responsabilités</span>
+        </div>
+
+      </div>
+
+      <div class="xp-card">
+        <h4>🌱 Une culture d'entreprise marquante : RSE et inclusion</h4>
+
+        <p>
+          Découvrir le fonctionnement du siège d'un actor majeur de l'économie circulaire a profondément enrichi ma vision du métier.
+          Au support informatique, la politique RSE se traduit concrètement par la prolongation de la durée de vie des équipements informatiques.
+        </p>
+
+        <p>
+          J'ai également proposé à mon responsable un projet de point de collecte interne permettant aux collaborateurs de recycler plus facilement leur matériel inutilisé.
+          Cette initiative m'a sensibilisée aux enjeux environnementaux liés à l'informatique.
+        </p>
+
+        <p>
+          Par faire ailleurs, participer à la Semaine de la Parité et échanger avec des professionnelles inspirantes a renforcé ma confiance et ma légitimité
+          en tant que femme dans un secteur encore majoritairement masculin.
+        </p>
+
+        <div class="xp-badges">
+          <span>RSE</span>
+          <span>Développement durable</span>
+          <span>Inclusion</span>
+          <span>Prise d’initiative</span>
+          <span>Esprit d’entreprise</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="xp-section">
+
+    <h3>Alignement avec les compétences du BUT Informatique</h3>
+
+    <div class="xp-grid-2">
+
+      <div class="xp-card big">
+
+        <h4>Compétence 1 — Administrer des systèmes informatiques communicants complexes</h4>
+
+        <h5>Missions réalisées</h5>
+        <p>
+          Masterisation industrielle de postes avec Microsoft Endpoint Configuration Manager (MECM).<br>
+          Déploiement automatisé d’images système.<br>
+          Configuration BIOS, intégration au domaine Active Directory et application des GPO.<br>
+          Diagnostic et résolution d’incidents réseau à l’aide du modèle OSI.<br>
+          Résolution d’un problème de DNS grâce aux commandes nslookup, ping et à la purge du cache réseau.
+        </p>
+
+        <h4>Outils utilisés</h4>
+        <div class="xp-tools">
+          <span>MECM</span>
+          <span>Active Directory</span>
+          <span>DNS</span>
+          <span>DHCP</span>
+          <span>SSH</span>
+          <span>GPO</span>
+          <span>PowerShell</span>
+          <span>Windows</span>
+          <span>Réseau</span>
+        </div>
+
+      </div>
+
+      <div class="xp-card big">
+
+        <h4>Compétence 2 — Organiser et piloter des projets informatiques</h4>
+
+        <p>
+          Grâce à la confiance de mon maître de stage et après lui avoir présenté mon projet professionnel,
+          j'ai eu l'opportunité d'occuper le rôle d’Incident Manager.
+        </p>
+
+        <h5>Missions réalisées</h5>
+        <p>
+          Répartition des tickets Landesk selon les compétences et la charge de travail de l’équipe.<br>
+          Élaboration du planning des congés 2026 sous Excel.<br>
+          Animation de réunions afin de définir des indicateurs de performance (KPI).<br>
+          Rédaction d’un cahier des charges pour la création d’un tableau de bord de supervision du support informatique.
+        </p>
+
+        <h4>Outils utilisés</h4>
+        <div class="xp-tools">
+          <span>Landesk</span>
+          <span>Excel</span>
+          <span>KPI</span>
+          <span>Gestion de projet</span>
+          <span>Cahier des charges</span>
+          <span>Planification</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="xp-section">
+
+    <h3>Analyse réflexive</h3>
+
+    <div class="xp-grid-3">
+
+      <div class="xp-reflect">
+        <div class="xp-reflect-icon">🎯</div>
+        <h4>Confirmation de mon projet professionnel</h4>
+        <p>
+          Découvrir un autre domaine de l'informatique m'a permis de confirmer mon choix d'orientation.
+          Cette expérience a surtout renforcé mon intérêt pour le développement logiciel et mon ambition de devenir développeuse Full Stack.
+        </p>
+      </div>
+
+      <div class="xp-reflect">
+        <div class="xp-reflect-icon">📚</div>
+        <h4>Développer sa capacité d'adaptation</h4>
+        <p>
+          L'arrivée dans un environnement Microsoft à grande échelle a représenté un véritable défi.
+          J'ai dû apprendre rapidement Active Directory, PowerShell ou MECM avec autonomie et curiosité.
+        </p>
+      </div>
+
+      <div class="xp-reflect">
+        <div class="xp-reflect-icon">💡</div>
+        <h4>Une nouvelle vision du métier</h4>
+        <p>
+          J’ai compris qu’une solution informatique pertinente n’est pas toujours une application.
+          Un outil existant ou une bonne organisation peut parfois être plus efficace.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+<section id="objectifs" class="obj-page">
+
+  <div class="obj-hero">
+
+    <h2>Objectifs</h2>
+
+    <p class="obj-intro">
+      Chaque expérience, chaque projet et chaque apprentissage me rapprochent progressivement de mon objectif professionnel.
+      Cette feuille de route reflète les ambitions qui guident mon parcours, de mes objectifs immédiats jusqu'à mes aspirations à long terme.
+    </p>
+
+  </div>
+
+  <div class="obj-timeline">
+
+    <div class="obj-line"></div>
+
+    <div class="obj-item reveal">
+      <div class="obj-dot">🎯</div>
+
+      <div class="obj-card">
+        <h3>Court terme</h3>
+
+        <p>
+          Mon objectif pour ma troisième année de BUT est de continuer à développer mes compétences techniques tout en consolidant mes connaissances théoriques.
+          Je souhaite privilégier une formation riche en apprentissages avant d'entrer durablement dans le monde professionnel.
+        </p>
+
+        <p>
+          À la suite de mon stage chez Fnac Darty, où j'ai eu l'opportunité d'échanger avec les équipes de développement,
+          je souhaite candidater à un nouveau stage au sein de cette entreprise afin de découvrir cette fois-ci le métier de développeuse.
+        </p>
+
+        <div class="obj-badges">
+          <span>BUT Informatique 3</span>
+          <span>Théorie</span>
+          <span>Stage</span>
+          <span>Développement</span>
+          <span>Progression</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="obj-item reveal">
+      <div class="obj-dot">🚀</div>
+
+      <div class="obj-card">
+        <h3>Moyen terme</h3>
+
+        <p>
+          Après l'obtention de mon BUT Informatique, je souhaite intégrer une école d'ingénieurs en alternance afin d'approfondir mes compétences techniques
+          tout en acquérant une expérience professionnelle plus importante.
+        </p>
+
+        <p>
+          J'aimerais également effectuer un semestre d'études au Canada afin de découvrir une nouvelle culture,
+          développer mon autonomie et enrichir ma vision de l'informatique à l'international.
+        </p>
+
+        <div class="obj-badges">
+          <span>École d'ingénieurs</span>
+          <span>Alternance</span>
+          <span>Canada</span>
+          <span>Mobilité internationale</span>
+          <span>Apprentissage</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="obj-item reveal">
+      <div class="obj-dot">🌟</div>
+
+      <div class="obj-card">
+        <h3>Long terme</h3>
+
+        <p>
+          Mon ambition est de devenir développeuse Full Stack et de participer à la conception d'applications complètes,
+          de la base de données jusqu'à l'interface utilisateur.
+        </p>
+
+        <p>
+          À plus long terme, j'aimerais évoluer vers un poste de Lead Développeuse afin d'encadrer une équipe
+          et de participer aux décisions techniques des projets.
+          Mon expérience en tant qu'Incident Manager durant mon stage m'a montré que j'apprécie également organiser, coordonner et accompagner une équipe.
+        </p>
+
+        <div class="obj-badges">
+          <span>Full Stack</span>
+          <span>Lead Développeuse</span>
+          <span>Management</span>
+          <span>Architecture logicielle</span>
+          <span>Leadership</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <h3>Me retrouver</h3>
+        <div class="contact-links">
+          <a href="https://github.com/constantine526" target="_blank" class="contact-link reveal">
+            <div class="contact-link-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>GitHub</strong>
+              <span>Voir mes dépôts</span>
+            </div>
+          </a>
+          <a href="https://linkedin.com/" target="_blank" class="contact-link reveal reveal-delay-1">
+            <div class="contact-link-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>LinkedIn</strong>
+              <span>Mon profil professionnel</span>
+            </div>
+          </a>
+          <a href="#" class="contact-link reveal reveal-delay-2">
+            <div class="contact-link-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>Télécharger mon CV</strong>
+              <span>Format PDF</span>
+            </div>
+          </a>
+          <a href="mailto:janshica.constantine@example.com" class="contact-link reveal reveal-delay-3">
+            <div class="contact-link-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B3A6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-link-text">
+              <strong>Adresse mail</strong>
+              <span>Me contacter par email</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <h3>Envoyer un message</h3>
+        <div class="form-group">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" placeholder="Votre nom">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="votre@email.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Votre message..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%">Envoyer</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-name">Janshica Constantine</p>
+  <p class="footer-role">Étudiante en BUT Informatique</p>
+  <div class="footer-links">
+    <a href="https://github.com/constantine526" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+  </div>
+  <p class="footer-copy">© 2026 Janshica Constantine</p>
+</footer>
+
+<script>
+/* -- Hamburger -- */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+/* -- Section title underline animation -- */
+const sectionTitles = document.querySelectorAll('.section-title h2');
+const titleObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.5 });
+sectionTitles.forEach(t => titleObserver.observe(t));
+
+/* -- Scroll reveal -- */
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => revealObserver.observe(r));
+
+/* -- SAE card toggle -- */
+function toggleSAE(card) {
+  const isExpanded = card.classList.contains('expanded');
+  document.querySelectorAll('.sae-card.expanded').forEach(c => c.classList.remove('expanded'));
+  if (!isExpanded) card.classList.add('expanded');
+}
+
+/* -- Smooth scroll -- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 64;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
